@@ -1,0 +1,227 @@
+#profile {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 16px;
+			background: transparent;
+			padding: 12px;
+}
+.pagelet-top-menu__element {
+    outline: 0;
+    padding-left: 16px;
+    position: fixed;
+    top: 7px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+}
+.mc-popover {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    font-family: 'AtlasGrotesk', sans-serif;
+    font-size: 14px;
+    color: #1b2733;
+}
+.mc-popover-trigger {
+    outline: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+.mc-button {
+    display: inline-block;
+    zoom: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+    border-radius: 4px;
+    outline: none;
+    margin: 0;
+}
+.mc-button-circular {
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 50%;
+}
+.mc-button {
+    cursor: pointer;
+    font-family: 'AtlasGrotesk', sans-serif;
+    font-size: 14px;
+    height: 32px;
+}
+.mc-button .mc-button-content {
+    position: relative;
+}
+.mc-avatar {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    overflow: hidden;
+    outline: 0;
+}
+.mc-avatar-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.mc-popover-content {
+    position: absolute;
+    box-sizing: inherit;
+    display: -ms-flexbox;
+    display: flex;
+    left: 0;
+    width: 344px;
+    z-index: 1;
+}
+.mc-popover-content-attach-right {
+    right: 0;
+    left: auto;
+    margin-right: -8px;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+.mc-popover-content-position-below {
+    top: 100%;
+    margin-top: 8px;
+}
+.avatar,
+.avatar--circle,
+.avatar--md {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 30px;
+    vertical-align: middle;
+    height: 32px;
+    width: 32px;
+    /* margin-right: 4px; */
+    background: #8BA9AB;
+    text-align: center;
+}
+
+.avatar--circle {
+    border-radius: 100%;
+}
+
+.avatar img,
+.avatar--circle img,
+.avatar--md img {
+    width: 100%;
+    height: 100%;
+}
+
+.avatar--circle {
+    border-radius: 50%;
+    background: #8BA9AB;
+}
+
+.avatar--yellow {
+    background: #ffba20;
+}
+
+.avatar--green {
+    background: #00c662;
+}
+
+.avatar--blue {
+    background: #379aff;
+}
+
+.avatar--red {
+    background: #f62f37;
+}
+
+.avatar--lightblue {
+    background: #5c67c3;
+}
+
+.avatar--lightgreen {
+    background: #004d40;
+}
+
+.avatar--lightgrey {
+    background: #5e4137;
+}
+
+.avatar--darkblue {
+    background: #00559d;
+}
+
+.avatar--indingo {
+    background: #3e4db8;
+}
+.avatar--brand {
+    /* background: #8BA9AB; */
+    /* background: #658f92; */
+    background: #fff;
+}
+.avatar span {
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    color: #658f92;
+}
+
+.display-name {
+    white-space: nowrap;
+    padding-left: 24px;
+    display: inline-block;
+}
+
+#profileName {
+	color: rgba(255, 255, 255, 0.75);
+}
+
+#popover-menu {
+    position: absolute;
+    top: -56px;
+    background: #fff;
+    padding: 16px;
+    min-width: 160px;
+    display: none;
+    border: 1px solid #f3f3f3;
+    border-radius: 4px;
+}
+
+.user-info .btn-link {
+	color: #8BA9AB;
+	cursor: pointer;
+}
+
+.user-info .btn-link:hover {
+	text-decoration: none;
+	color: #8BA9AB;
+}
+
+#popover-menu.active {
+	display: block;
+}
+/* .account-menu:after {
+		display: none;
+		width: 0;
+		margin-bottom: 4px;
+		margin-left: 4px;
+		height: 0;
+		vertical-align: middle;
+		content: "";
+		color: rgba(255, 255, 255, 0.5);
+		border: 4px solid;
+		border-right-color: transparent;
+		border-top-color: transparent;
+		border-left-color: transparent;
+} */

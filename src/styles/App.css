@@ -1,0 +1,117 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	box-sizing: border-box;
+}
+body {
+	background: #f4f5f7;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.backdrop {
+	background: url('../assets/backdrop.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+}
+.left-nav {
+	width: 64px;
+	background: #4D848A;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+.left-nav ul {
+	margin: 0;
+	padding: 0;
+}
+.left-nav ul li {
+	position: relative;
+	padding: 8px 0;
+}
+.left-nav ul li:after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 60%;
+	margin: 0 auto;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.24);
+	content: ''
+}
+.left-nav ul li:last-child:after {
+	display: none;
+}
+.person-detail {
+	display: flex;
+	flex-direction: column;
+}
+/* Notification */
+.notification-item {
+	min-width: 120px;
+}
+.notification-header {
+	display: flex;
+	align-items: center;
+}
+.notification-header > * {
+	padding-right: 8px;
+}
+.notification-header .category {
+	position: relative;
+	padding-right: 16px;
+	color: #4D848A;
+}
+.notification-header .category:after {
+	content: '';
+	position: absolute;
+	right: 4px;
+	height: 4px;
+	width: 4px;
+	background: #777;
+	border-radius: 100%;
+	top: 50%;
+	transform: translateY(-50%)
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
