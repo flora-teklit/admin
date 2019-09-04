@@ -10,7 +10,7 @@ import {
   Grid,
   Paper,
   createMuiTheme,
- Menu, MenuItem
+ Menu, MenuItem, Button
 } from "@material-ui/core";
 import { Search, MoreHoriz } from "@material-ui/icons";
 import { fade, makeStyles } from "@material-ui/core/styles";
@@ -94,9 +94,11 @@ class userList extends Component {
     super(props);
     this.state = {
       selectedRow:-1,
+      anchorEl: null,
       filterd:[],
       rows: [
         {
+          id:1,
           name: "Flora",
           email: "flora@gmail.com",
           address: "Mekelle",
@@ -105,6 +107,8 @@ class userList extends Component {
           isActive:0
         },
         {
+
+          id:2,
           name: "Rahwa",
           email: "rahwa@gmail.com",
           address: "Mekelle",
@@ -113,6 +117,7 @@ class userList extends Component {
           isActive:0
         },
         {
+          id:3,
           name: "Abel",
           email: "Abel@gmail.com",
           address: "Mekelle",
@@ -132,16 +137,13 @@ class userList extends Component {
     console.log(value);
     //TODO: - Change this.state.rows to selected value
   };
-  handleClick = (event) => {
-    this.setState({
-      anchorEl: event.currentTarget
-    })
-}
-handleClose = () => {
-  this.setState({
-    anchorEl: null
-  })
-}
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
 
 goto = (route) => {
 this.props.history.push(route);
@@ -162,7 +164,7 @@ changeColor = selectedRow => e => {
 };
 
 gotoActivateUser=()=>{
-  console.log("click activate");
+  console.log(this.state.rows.isActive);
   this.setState({
     isActive:1
   })
@@ -179,7 +181,12 @@ searchUser=(e)=>{
   })
   console.log(ret);
 }
+update=(i)=>{
+console.log(this.state.rows[i].name);
+
+}
   render() {
+    const { anchorEl } = this.state;
     return (
       <div style={{ marginTop: 12, width: "75%", margin: "0 auto" }}>
         <ThemeProvider theme={theme}>
@@ -219,6 +226,7 @@ searchUser=(e)=>{
                       padding: "11px 8px 8px 48px",
                       transition: "width",
                       width: "100%"
+                      
                     }}
                     onChange={this.searchUser}
                     inputProps={{ "aria-label": "Search" }}
@@ -229,7 +237,7 @@ searchUser=(e)=>{
           </Grid>
 
           <Grid container>
-            <Paper style={{ marginTop: 12, width: "100%" }}>
+            <Paper style={{ marginTop: 12, width: "100%",paddingTop:30 }}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -238,6 +246,7 @@ searchUser=(e)=>{
                     <TableCell>Role</TableCell>
                     <TableCell>Adress</TableCell>
                     <TableCell>Phone</TableCell>
+                    <TableCell></TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
@@ -258,6 +267,7 @@ searchUser=(e)=>{
                       <TableCell>{row.phone}</TableCell>
                       <TableCell align="right">
                         <IconButton
+                         aria-owns={anchorEl ? "simple-menu" : null}
                           onClick={this.handleClick}
                           size="small"
                          
@@ -268,17 +278,43 @@ searchUser=(e)=>{
                          
                         </IconButton>
                         <Menu
-					anchorEl={this.state.anchorEl}
-				 keepMounted
-					open={Boolean(this.state.anchorEl)}
+          id="simple-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
           onClose={this.handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left"
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left"
+          }}
+          getContentAnchorEl={null}
+        >
+         
+          <MenuItem  onClick={
+            
+            (e, i)=>{
+              this.setState({ anchorEl: null });
+              let filterd = this.state.filterd;
+              filterd.splice(i, 1);
+              console.log( ' element index ', i);
+              this.setState({
+                filterd
+              });
 
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          transformOrigin={{ vertical: "top", horizontal: "left" }}      
-			>
-					<MenuItem onClick={ this.gotoActivateUser}>Activate </MenuItem>
-					<MenuItem onClick={() => this.gotoDeletUser }>Delete </MenuItem>
-				</Menu>
+              
+            }
+          }>Delete</MenuItem>
+           <MenuItem onClick={this.handleClose}>Activate</MenuItem>
+          
+        </Menu>
+                      </TableCell>
+                      <TableCell>
+                        <Button onClick={this.update(i)}> 
+                          new
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}
