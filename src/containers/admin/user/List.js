@@ -1,22 +1,33 @@
 import React, { Component } from "react";
+import { download } from "./download.jpg";
 import {
   InputBase,
-  Table,
-  TableRow,
-  TableHead,
-  TableCell,
-  TableBody,
+  Card,
+  CardContent,
+  Typography,
+  Menu,
+  MenuItem,
   IconButton,
   Grid,
   Paper,
   createMuiTheme,
- Menu, MenuItem
+  Box,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  Fab
 } from "@material-ui/core";
-import { Search, MoreHoriz } from "@material-ui/icons";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import "../../../styles/App.css";
+import { Search, MoreHoriz, Block } from "@material-ui/icons";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-
-import '../../../styles/table.css';
+import "../../../styles/table.css";
+import { blue, grey } from "@material-ui/core/colors";
 
 const styles = makeStyles(theme => ({
   root: {
@@ -79,6 +90,40 @@ const styles = makeStyles(theme => ({
     width: "100%",
     height: "2.1875em",
     [theme.breakpoints.up("md")]: {}
+  },
+  card: {
+    display: "flex",
+
+    background: blue
+  },
+  CardContent: {
+    padding: 5
+  },
+  details: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  content: {
+    flex: "1 0 auto",
+    paddingBottom: 10,
+    marginBottom: 10
+  },
+  col: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  cover: {
+    width: 151
+  },
+  controls: {
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
+  },
+  br: {
+    display: Block,
+    backgroundColor: blue
   }
 }));
 
@@ -93,201 +138,302 @@ class userList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedRow:-1,
-      filterd:[],
+      imgSrc: "./download.jpg",
+      selectedRow: -1,
+      anchorEl: null,
+      filterd: [],
       rows: [
         {
-          name: "Flora",
+          id: 1,
+          name: "Alex Weldu",
           email: "flora@gmail.com",
           address: "Mekelle",
-          role: "user",
+          role: "User",
           phone: "0918",
-          isActive:0
+          isActive: 0
         },
         {
-          name: "Rahwa",
+          id: 2,
+          name: "Rahwa Adisu",
           email: "rahwa@gmail.com",
           address: "Mekelle",
           role: "Admin",
           phone: "0908",
-          isActive:0
+          isActive: 0
         },
         {
-          name: "Abel",
+          id: 3,
+          name: "Abel Abel",
           email: "Abel@gmail.com",
           address: "Mekelle",
           role: "Super",
           phone: "0908",
-          isActive:0
+          isActive: 0
         }
       ]
     };
   }
 
-  navigateToDetails = () => {
-    this.props.history.push("/admin/details");
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
   };
 
-  changeView = value => {
-    console.log(value);
-    //TODO: - Change this.state.rows to selected value
+  handleClose = () => {
+    this.setState({ anchorEl: null });
   };
-  handleClick = (event) => {
+
+  changeColor = selectedRow => e => {
+    if (selectedRow !== undefined) {
+      this.setState({ selectedRow });
+    }
+  };
+
+  gotoActivateUser = () => {
+    console.log(this.state.rows.isActive);
     this.setState({
-      anchorEl: event.currentTarget
-    })
-}
-handleClose = () => {
-  this.setState({
-    anchorEl: null
-  })
-}
+      isActive: 1
+    });
+  };
 
-goto = (route) => {
-this.props.history.push(route);
-//MARK: - Close the menu
-this.setState({
-  anchorEl: null
-})
-}
-// handleActivate=()=>{
-//   this.setState({
-//     isActive:true
-//   })
-// }
-changeColor = selectedRow => e => {
-  if (selectedRow !== undefined) {
-    this.setState({ selectedRow  });
-  }
-};
+  searchUser = e => {
+    const ret = this.state.rows.filter(r => {
+      return (
+        r.name.toLocaleLowerCase().includes(e.target.value) ||
+        r.phone.includes(e.target.value)
+      );
+    });
 
-gotoActivateUser=()=>{
-  console.log("click activate");
-  this.setState({
-    isActive:1
-  })
-}
+    this.setState({
+      filterd: ret
+    });
+    console.log(ret);
+  };
 
-searchUser=(e)=>{
-  
-  const ret=this.state.rows.filter(r=>{
-    return r.name.toLocaleLowerCase().includes(e.target.value) || r.phone.includes(e.target.value);
-  })
-
-  this.setState({
-    filterd:ret
-  })
-  console.log(ret);
-}
   render() {
+    const { anchorEl } = this.state;
+    const classes = { styles };
+
     return (
-      <div style={{ marginTop: 12, width: "75%", margin: "0 auto" }}>
-        <ThemeProvider theme={theme}>
-          <Grid container>
-            <Grid item xs={12}>
-              <div
-                style={{
-                  paddingTop: 24,
-                  display: "flex"
-                }}
-              >
-                <Paper
+      <ThemeProvider theme={theme}>
+        <div>
+          <div style={{ marginTop: 12, width: "55%", margin: "0 auto" }}>
+            <Grid container>
+              <Grid item xs={12}>
+                <div
                   style={{
-                    position: "relative",
-                    flex: 1
+                    paddingTop: 24,
+                    display: "flex"
                   }}
                 >
-                  <div
+                  <Paper
                     style={{
-                      width: 48,
-                      height: "100%",
-                      position: "absolute",
-                      pointerEvents: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "rgba(0, 0, 0, 0.54)"
+                      position: "relative",
+                      flex: 1,
+                      marginBottom: 25
                     }}
                   >
-                    <Search />
-                  </div>
-                  <InputBase
-                    placeholder="Search"
-                    style={{
-                      color: "inherit",
-                      display: "flex",
-                      padding: "11px 8px 8px 48px",
-                      transition: "width",
-                      width: "100%"
-                    }}
-                    onChange={this.searchUser}
-                    inputProps={{ "aria-label": "Search" }}
-                  />
-                </Paper>
-              </div>
+                    <div
+                      style={{
+                        width: 48,
+                        height: "100%",
+                        position: "absolute",
+                        pointerEvents: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "rgba(0, 0, 0, 0.54)"
+                      }}
+                    >
+                      <Search />
+                    </div>
+                    <InputBase
+                      placeholder="Search"
+                      style={{
+                        color: "inherit",
+                        display: "flex",
+                        padding: "11px 8px 8px 48px",
+                        transition: "width",
+                        width: "100%"
+                      }}
+                      onChange={this.searchUser}
+                      inputProps={{ "aria-label": "Search" }}
+                    />
+                  </Paper>
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
+          </div>
 
-          <Grid container>
-            <Paper style={{ marginTop: 12, width: "100%" }}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Role</TableCell>
-                    <TableCell>Adress</TableCell>
-                    <TableCell>Phone</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody className="tableHover">
-                  {this.state.filterd.map((row,i)=> (
-                    <TableRow key={i} 
-                    onClick={this.changeColor(i)}
-                    className={this.state.selectedRow === i ? "tableSelected" : "" }
-
-                     >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell>{row.email}</TableCell>
-
-                      <TableCell>{row.role}</TableCell>
-                      <TableCell>{row.address}</TableCell>
-                      <TableCell>{row.phone}</TableCell>
-                      <TableCell align="right">
-                        <IconButton
-                          onClick={this.handleClick}
-                          size="small"
+          {this.state.rows.map(row => (
+            <div>
+              <div>
+                <Grid container spacing={3}>
+                  <ExpansionPanel
+                    style={{ width: "40%", marginBottom: "20px" }}
+                  >
+                    <ExpansionPanelSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1bh-content"
+                      id="panel1bh-header"
+                    >
+                      <Grid xs={8}>
+                        <Typography
+                          variant="body1"
+                          align="left"
                          
-                          className={this.state.selectedRow === i ? "tableSelected" : "" }
                         >
-                         
-                            <MoreHoriz />
-                         
-                        </IconButton>
-                        <Menu
-					anchorEl={this.state.anchorEl}
-				 keepMounted
-					open={Boolean(this.state.anchorEl)}
-          onClose={this.handleClose}
+                          <Box borderBottom={1} borderColor="primary">
+                            {row.name}
+                          </Box>
+                        </Typography>
+                      </Grid>
 
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          transformOrigin={{ vertical: "top", horizontal: "left" }}      
-			>
-					<MenuItem onClick={ this.gotoActivateUser}>Activate </MenuItem>
-					<MenuItem onClick={() => this.gotoDeletUser }>Delete </MenuItem>
-				</Menu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Paper>
-          </Grid>
-        </ThemeProvider>
-      </div>
+                      <Grid xs={9} className="typo">
+                        <Typography
+                          variant="body1"
+                          fontWeight="fontWeightLight"
+                          align="right"
+                          display="block"
+                          color="primary"
+                        >
+                          {row.role}
+                        </Typography>
+                      </Grid>
+                       
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <Table>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell align="left">
+                              {" "}
+                              <Typography
+                                variant="body1"
+                                align="left"
+                                color="textSecondary"
+                                display="block"
+                                align="left"
+                              >
+                                email:
+                              </Typography>
+                            </TableCell>
+                            <TableCell  align="left" padding="checkbox">
+                              <Typography
+                                variant="body1"
+                                align="left"
+                                color="textSecondary"
+                                display="block"
+                                align="left"
+                                fontSize="20"
+                              >
+                                {row.email}
+                              </Typography>
+                            </TableCell>
+                            <TableCell >
+                             
+                            <IconButton
+                        aria-owns={anchorEl ? "simple-menu" : null}
+                        onClick={this.handleClick}
+                        size="small"
+                      ><Fab size="small">
+                        <MoreHoriz />
+                        </Fab>
+                      </IconButton>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              {" "}
+                              <Typography
+                                variant="body1"
+                                align="left"
+                                color="textSecondary"
+                                display="block"
+                                align="left"
+                              >
+                                phone:
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography
+                                variant="body1"
+                                align="left"
+                                color="textSecondary"
+                                display="block"
+                                align="left"
+                              >
+                                {row.phone}
+                              </Typography>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              {" "}
+                              <Typography
+                                variant="body1"
+                                align="left"
+                                color="textSecondary"
+                                display="block"
+                                align="left"
+                              >
+                                address:
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography
+                                variant="body1"
+                                align="left"
+                                color="textSecondary"
+                                display="block"
+                                align="left"
+                              >
+                                {row.address}
+                              </Typography>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow></TableRow>
+                        </TableBody>
+                      </Table>
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+                </Grid>
+              </div>
+              <div className={classes.controls}>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left"
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left"
+                  }}
+                  getContentAnchorEl={null}
+                >
+                  <MenuItem
+                    onClick={(e, i) => {
+                      this.setState({ anchorEl: null });
+                      let filterd = this.state.filterd;
+                      filterd.splice(i, 1);
+                      console.log(" element index ", i);
+                      this.setState({
+                        filterd
+                      });
+                    }}
+                  >
+                    Delete
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>Activate</MenuItem>
+                </Menu>
+              </div>
+            </div>
+          ))}
+        </div>
+      </ThemeProvider>
     );
   }
 }

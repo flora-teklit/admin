@@ -27,10 +27,9 @@ import Profile from "../components/Profile";
 import NotificationItem from "../components/NotificationItem";
 import Login from "./Login";
 import userList from "./admin/user/List";
-//import Details from "./admin/user/PatientDetails";
-//import Settings from "./admin/user/Settings";
+
 import createUser from "./admin/user/createUser";
-///import Admin from "./admin/Admin";
+
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#4D848A" },

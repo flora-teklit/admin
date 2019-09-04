@@ -40,7 +40,7 @@ export default class Profile extends Component {
 							<span className="mc-button mc-button-circular">
 								<span className="mc-button-content">
 									<div className="mc-avatar avatar avatar--circle avatar--brand">
-										<span id="shortName">F</span>
+										<span id="shortName">A</span>
 									</div>
 								</span>
 							</span>

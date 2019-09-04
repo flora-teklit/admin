@@ -69,12 +69,24 @@ body {
 	width: 60%;
 	margin: 0 auto;
 	height: 1px;
-	background: rgba(255, 255, 255, 0.24);
+	background: rgba(13, 20, 20, 0.24);
+	content: ''
+}
+.line{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 60%;
+	margin: 0 auto;
+	height: 1px;
+	background: rgba(13, 20, 20, 0.24);
 	content: ''
 }
 .left-nav ul li:last-child:after {
 	display: none;
 }
+
 .person-detail {
 	display: flex;
 	flex-direction: column;
